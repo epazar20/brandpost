@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "pazarfy",
+      "type": "com.pazarfy.ws.configuration.AppConfig",
+      "sourceType": "com.pazarfy.ws.configuration.AppConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "pazarfy.upload-path",
+      "type": "java.lang.String",
+      "sourceType": "com.pazarfy.ws.configuration.AppConfig"
+    }
+  ],
+  "hints": []
+}

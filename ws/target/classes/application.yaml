@@ -1,0 +1,83 @@
+spring:
+  profiles:
+    active:
+    - prod
+      
+
+
+#logging:
+#  level:
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.type: TRACE
+#    org.springframework: DEBUG
+   
+    
+---
+spring:
+  config:
+    activate:
+      on-profile:
+      - prod
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+        max-page-size: 500
+  jpa:
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: none
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    generate-unique-name: false
+ 
+pazarfy:
+  upload-path: storage-prod/
+  
+---
+spring:
+  config:
+    activate:
+      on-profile:
+      - dev
+  datasource:
+    url: jdbc:h2:./devDB
+    username: sa
+  jpa:
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: none
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+      
+###
+#   H2 Settings
+###
+  h2:
+    console:
+      enabled: true
+      settings:
+        trace: false
+        web-allow-others: false
+  data:
+    web:
+      pageable:
+        default-page-size: 3
+        max-page-size: 500
+  
+pazarfy:
+  upload-path: storage-dev/
+    
