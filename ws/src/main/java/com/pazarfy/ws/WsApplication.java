@@ -19,6 +19,7 @@ public class WsApplication {
 		SpringApplication.run(WsApplication.class, args);
 	}
 	
+	
 	@Bean
 	@Profile("prod")
 	CommandLineRunner createInitialUser(IUserService service, FeedService feedService)
