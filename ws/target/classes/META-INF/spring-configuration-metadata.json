@@ -8,6 +8,21 @@
   ],
   "properties": [
     {
+      "name": "pazarfy.attachment-storage",
+      "type": "java.lang.String",
+      "sourceType": "com.pazarfy.ws.configuration.AppConfig"
+    },
+    {
+      "name": "pazarfy.jwt-secret-key",
+      "type": "java.lang.String",
+      "sourceType": "com.pazarfy.ws.configuration.AppConfig"
+    },
+    {
+      "name": "pazarfy.profile-storage",
+      "type": "java.lang.String",
+      "sourceType": "com.pazarfy.ws.configuration.AppConfig"
+    },
+    {
       "name": "pazarfy.upload-path",
       "type": "java.lang.String",
       "sourceType": "com.pazarfy.ws.configuration.AppConfig"

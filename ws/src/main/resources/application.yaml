@@ -1,23 +1,20 @@
 spring:
   profiles:
     active:
-    - prod
-      
+      - prod
 
-
-#logging:
+# logging:
 #  level:
-#    org.hibernate.SQL: DEBUG
-#    org.hibernate.type: TRACE
-#    org.springframework: DEBUG
-   
-    
+#  org.hibernate.SQL: DEBUG
+#  org.hibernate.type: TRACE
+# org.springframework: DEBUG
+
 ---
 spring:
   config:
     activate:
       on-profile:
-      - prod
+        - dev
   data:
     web:
       pageable:
@@ -29,26 +26,31 @@ spring:
         persistence:
           validation:
             mode: none
-      hibernate:
-        show_sql: true
-        use_sql_comments: true
-        format_sql: true
+    #      hibernate:
+    #        show_sql: true
+    #        use_sql_comments: true
+    #        format_sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
   datasource:
     generate-unique-name: false
- 
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
 pazarfy:
-  upload-path: storage-prod/
-  
+  upload-path: storage-dev/
+  jwtSecretKey: secret-dev
+
 ---
 spring:
   config:
     activate:
       on-profile:
-      - dev
+        - prod
   datasource:
-    url: jdbc:h2:./devDB
+    url: jdbc:h2:./storage-prod/prodDB
     username: sa
   jpa:
     properties:
@@ -57,15 +59,11 @@ spring:
           validation:
             mode: none
       hibernate:
-        show_sql: true
-        use_sql_comments: true
-        format_sql: true
+        # show_sql: true
+        # use_sql_comments: true
+        # format_sql: true
     hibernate:
       ddl-auto: update
-      
-###
-#   H2 Settings
-###
   h2:
     console:
       enabled: true
@@ -75,9 +73,9 @@ spring:
   data:
     web:
       pageable:
-        default-page-size: 3
+        default-page-size: 10
         max-page-size: 500
-  
+
 pazarfy:
-  upload-path: storage-dev/
-    
+  upload-path: storage-prod/
+  jwtSecretKey: secret-prod

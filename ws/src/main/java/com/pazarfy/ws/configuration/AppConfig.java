@@ -9,7 +9,21 @@ import lombok.Data;
 @Configuration
 @ConfigurationProperties(prefix = "pazarfy")
 public class AppConfig {
-	
+
 	String uploadPath;
+
+	String jwtSecretKey;
+
+	private String profileStorage = "profile";
+
+	private String attachmentStorage = "attachments";
+
+	public String getProfileStoragePath() {
+		return uploadPath + "/" + profileStorage;
+	}
+
+	public String getAttachmentStoragePath() {
+		return uploadPath + "/" + attachmentStorage;
+	}
 
 }

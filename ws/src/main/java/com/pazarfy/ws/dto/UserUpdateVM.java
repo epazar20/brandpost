@@ -8,7 +8,7 @@ import com.pazarfy.ws.file.FileType;
 import lombok.Data;
 
 @Data
-public class UserUpdateDto {
+public class UserUpdateVM {
 	
 	@NotNull(message = "{pazarfy.displayname.validation.constraints.NotNull.message}")
 	@Size(min=4,max=255,message = "{pazarfy.displayname.validation.constraints.Size.message}")

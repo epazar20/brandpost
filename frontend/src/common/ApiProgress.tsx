@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 export const useApiProgress = (apiMethod:string ,path: string) => {
 
     const [pendingApiCall, setPendingApiCall] = useState(false);
-
+    const PATHPREFIX = "/api/1.0/";
     const updateState = (method:string ,url: string, status: boolean): void => {
         if (url.startsWith(path) && method === apiMethod) {
             setPendingApiCall(status);
@@ -14,18 +14,22 @@ export const useApiProgress = (apiMethod:string ,path: string) => {
     useEffect(() => {
         const requestId = axios.interceptors.request.use((request: AxiosRequestConfig) => {
             const {method,url} = request;
-            updateState(method!,url!,true);
+            updateState(method!,url!.replace(PATHPREFIX,"")!,true);
+            const urls = url!.indexOf(PATHPREFIX) > -1 ? url : PATHPREFIX + request.url;
+            request.url = urls;
             return request;
         });
 
         const responseId = axios.interceptors.response.use((response) => {
             const {method,url} = response.config;
-            updateState(method!,url!,false);
+            const parsedUrl = url!.replace(PATHPREFIX,"");
+            updateState(method!,parsedUrl!,false);
             return response;
 
         }, (error) => {
             const {method,url} = error.config;
-            updateState(method!,url!,false);            
+            const parsedUrl = url!.replace(PATHPREFIX,"");
+            updateState(method!,parsedUrl!,false);            
             throw error;
         });
         return () => {

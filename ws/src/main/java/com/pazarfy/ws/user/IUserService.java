@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.pazarfy.ws.dto.UserUpdateDto;
+import com.pazarfy.ws.dto.UserUpdateVM;
+
 
 public interface IUserService {
 	
@@ -13,7 +14,9 @@ public interface IUserService {
 
 	Users findByUsername(String username);
 
-	Page<Users> getUsers(Pageable page,Users user);
+	Page<Users> getUsers(Pageable page,Users user,int type);
 
-	Users updateByUser(String username, UserUpdateDto data);
+	Users updateByUser(String username, UserUpdateVM data);
+
+	void delete(String username);
 }

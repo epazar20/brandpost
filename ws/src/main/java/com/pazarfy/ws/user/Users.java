@@ -1,12 +1,16 @@
 package com.pazarfy.ws.user;
 
 import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -16,6 +20,8 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.pazarfy.ws.auth.Token;
+import com.pazarfy.ws.feed.Feed;
 import com.pazarfy.ws.shared.View;
 
 import lombok.Data;
@@ -25,7 +31,7 @@ import lombok.Data;
 public class Users implements UserDetails {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotNull(message = "{pazarfy.username.validation.constraints.NotNull.message}")
@@ -48,6 +54,15 @@ public class Users implements UserDetails {
 	@Lob
 	@JsonView(View.ResponseAuth.class)
 	private String image;
+	
+	
+	private Integer usertype;
+	
+	@OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+	private List<Feed> feeds;
+
+	@OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+	private List<Token> tokens;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

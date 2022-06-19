@@ -17,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.pazarfy.ws.dto.UserUpdateDto;
+import com.pazarfy.ws.dto.UserUpdateVM;
 import com.pazarfy.ws.error.NotFoundException;
 import com.pazarfy.ws.file.FileService;
 import com.pazarfy.ws.shared.CurrentUser;
@@ -57,17 +57,27 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public Page<Users> getUsers(Pageable page, Users user) {
+	public Page<Users> getUsers(Pageable page, Users user, int type) {
 
 		if (user != null) {
+			if(type > -1)
+			{
+				return repository.findByUsertypeAndUsernameNot(type,user.getUsername(),page);
+			}
+			
 			return repository.findByUsernameNot(user.getUsername(),page);
+		}
+		
+		if(type > -1)
+		{
+			return repository.findByUsertype(type,page);
 		}
 
 		return repository.findAll(page);
 	}
 
 	@Override
-	public Users updateByUser(String username, UserUpdateDto data) {
+	public Users updateByUser(String username, UserUpdateVM data) {
 		Users inDB = findByUsername(username);
 		inDB.setDisplayname(data.getDisplayname());
 		String oldImg = inDB.getImage();
@@ -82,10 +92,18 @@ public class UserService implements IUserService {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			fileservice.deleteFile(oldImg);
+			fileservice.deleteProfileImage(oldImg);
 		}
 		
 		return repository.save(inDB);	
+	}
+
+	@Override
+	public void delete(String username) {
+		Users inDb = repository.findByUsername(username);
+		fileservice.deleteAllSources(inDb);
+		repository.delete(inDb);
+		//repository.deleteByUsername(username);
 	}
 
 	

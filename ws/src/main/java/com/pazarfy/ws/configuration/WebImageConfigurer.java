@@ -30,17 +30,20 @@ public class WebImageConfigurer implements WebMvcConfigurer{
 	
 	
 	@Bean
-	CommandLineRunner createDirectory()
-	{
+	CommandLineRunner createStorageDirectories() {
 		return (args) -> {
-			File folder = new File(config.getUploadPath());
-			boolean cnt = folder.exists() && folder.isDirectory();
-			if(!cnt)
-			{
-				folder.mkdir();
-			}
+			createFolder(config.getUploadPath());
+			createFolder(config.getProfileStoragePath());
+			createFolder(config.getAttachmentStoragePath());
 		};
-		
+	}
+
+	private void createFolder(String path) {
+		File folder = new File(path);
+		boolean folderExist = folder.exists() && folder.isDirectory();
+		if(!folderExist) {
+			folder.mkdir();
+		}
 	}
 
 }

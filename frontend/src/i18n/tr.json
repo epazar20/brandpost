@@ -7,7 +7,8 @@
     "Password Repeat": "Şifreyi Tekrarla",
     "Login": "Sisteme Gir",
     "Logout": "Çık",
-    "Users": "Kullanıcılar",
+    "Users0": "Kullanıcılar",
+    "Users1": "Sosyal İçerik Üretici",
     "Next": "sonraki >",
     "Previous": "< önceki",
     "Load Failure": "Liste alınamadı",
@@ -19,10 +20,11 @@
     "Cancel": "İptal Et",
     "My Profile": "Hesabım",
     "There are no feeds": "Mesaj bulunamadı",
-    "Load old feeds": "Geçmiş Hoaxları getir",
-    "There are new feeds": "Yeni Hoaxlar var",
-    "Delete Hoax": "Hoax'u sil",
-    "Are you sure to delete hoax?": "Hoax'u silmek istedğinizden emin misiniz?",
-    "Delete My Account": "Hesabımı Sil",
-    "Are you sure to delete your account?": "Hesabınızı silmek istediğinizden emin misiniz?"
+    "Load old feeds": "Geçmiş gönderileri getir",
+    "There are new feeds": "Yeni gönderiler var",
+    "Delete feed": "Sil",
+    "Are you sure to delete feed?": "Paylaşımınızı silmek istedğinizden emin misiniz?",
+    "Delete My Account": "Sil",
+    "Are you sure to delete your account?": "Hesabınızı silmek istediğinizden emin misiniz?",
+    "Feed has unknown attachment": "Tanımlanamayan eklenti içermektedir."
   }

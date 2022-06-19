@@ -7,7 +7,8 @@
     "Password Repeat": "Password Repeat",
     "Login": "Login",
     "Logout": "Logout",
-    "Users": "Users",
+    "Users0": "Users",
+    "Users1": "Influencer",
     "Next": "next >",
     "Previous": "< previous",
     "Load Failure": "Load Failure",
@@ -21,8 +22,9 @@
     "There are no feeds": "There are no feeds",
     "Load old feeds": "Load old feeds",
     "There are new feeds": "There are new feeds",
-    "Delete Hoax": "Delete Hoax",
-    "Are you sure to delete hoax?": "Are you sure to delete hoax?",
-    "Delete My Account": "Delete My Account",
-    "Are you sure to delete your account?": "Are you sure to delete your account?"
+    "Delete feed": "Delete Feed",
+    "Are you sure to delete feed?": "Are you sure to delete feed?",
+    "Delete My Account": "Delete",
+    "Are you sure to delete your account?": "Are you sure to delete your account?",
+    "Feed has unknown attachment": "Feed has unknown attachment"
 }

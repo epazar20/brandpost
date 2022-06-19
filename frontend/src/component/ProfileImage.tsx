@@ -8,7 +8,7 @@ const ProfileImage = (props:any) => {
     let imgsrc = imageDb || defaultImage;
     if(imageDb)
     {
-        imgsrc = "/images/"+ imageDb;
+        imgsrc = "images/profile/"+ imageDb;
     }
     const image = tempimage || imgsrc;
     return (

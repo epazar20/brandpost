@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,9 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pazarfy.ws.dto.UserDto;
-import com.pazarfy.ws.dto.UserUpdateDto;
-import com.pazarfy.ws.error.ApiError;
+import com.pazarfy.ws.dto.UserUpdateVM;
+import com.pazarfy.ws.dto.UserVM;
 import com.pazarfy.ws.shared.CurrentUser;
 import com.pazarfy.ws.shared.GenericResponse;
 import com.pazarfy.ws.shared.View;
@@ -45,40 +45,27 @@ public class UserController {
 	IUserService service;
 
 	@PostMapping("/users")
-	// @ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> CreateUser(@Valid @RequestBody Users user) {
-//		if(user.getUsername() == null || user.getUsername().isBlank())
-//		{
-//			
-//			ApiError error = new ApiError(400,"Validation Error","api/1.0/users");
-//			Map<String,String> map = new HashMap();
-//			map.put("username", "username not null");
-//			error.setValidationerrors(map);
-//			//return  ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//			return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-//		}
 
 		service.CreateUser(user);
 		logger.info(user.toString());
 		return ResponseEntity.ok(new GenericResponse("User created"));
-
 	}
 
 	@GetMapping(path = "/users")
-	// @JsonView(View.ResponseAuth.class)
-	public Page<UserDto> getUsers(Pageable page, @CurrentUser Users auth) {
-		return service.getUsers(page, auth).map(user -> {
-			return new UserDto(user);
+	public Page<UserVM> getUsers(Pageable page,@RequestParam int type, @CurrentUser Users auth) {
+		return service.getUsers(page, auth, type).map(user -> {
+			return new UserVM(user);
 		});
-		// return service.getUsers().map(UserDto::new);
+		// return service.getUsers().map(UserVM::new);
 	}
 	
 	
 	@GetMapping(path = "/users/{username}")
-	public UserDto getUser(@PathVariable String username)
+	public UserVM getUser(@PathVariable String username)
 	{
 		Users user = service.findByUsername(username);
-		return new UserDto(user);
+		return new UserVM(user);
 	}
 	
 	
@@ -86,7 +73,7 @@ public class UserController {
 	@PutMapping(path = "users/{username}")
 	//@PreAuthorize("#loggedUser != null && #username == #loggedUser.username")
 	@PreAuthorize("!isAnonymous() && #username == principal.username")
-	public ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateDto data,
+	public ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateVM data,
 			@PathVariable String username /* ,@CurrentUser Users loggedUser */)
 	{
 //		if(username != loggedUser.getUsername())
@@ -96,8 +83,17 @@ public class UserController {
 //		}
 		
 		Users user = service.updateByUser(username, data);
-		return ResponseEntity.ok(new UserDto(user));
+		return ResponseEntity.ok(new UserVM(user));
 	}
+	
+	
+	@DeleteMapping("users/{username}")
+	@PreAuthorize("!isAnonymous() && #username == principal.username")
+	GenericResponse deleteHoax(@PathVariable String username) {
+		service.delete(username);
+		return new GenericResponse("Feed removed");
+	}
+	
 
 //	@ExceptionHandler(MethodArgumentNotValidException.class)
 //	@ResponseStatus(HttpStatus.BAD_REQUEST)

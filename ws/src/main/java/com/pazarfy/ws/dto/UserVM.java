@@ -5,7 +5,7 @@ import com.pazarfy.ws.user.Users;
 import lombok.Data;
 
 @Data
-public class UserDto {
+public class UserVM {
 	
 	String username;
 	
@@ -13,7 +13,7 @@ public class UserDto {
 	
 	String image;
 
-	public UserDto(Users user ){
+	public UserVM(Users user ){
 		
 		username = user.getUsername();
 		displayname= user.getDisplayname();

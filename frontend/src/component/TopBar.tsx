@@ -75,7 +75,7 @@ const TopBar = (props: any) => {
             <li className="nav-item dropdown">
                 <div className='d-flex' style={{ cursor: "pointer" }}>
                     <ProfileImage imageDb={image} width={32} height={32} />
-                    <span className='nav-link dropdown-toggle'>{displayname}</span>
+                    <span className='nav-link dropdown-toggle'>{username}</span>
                 </div>
                 <div className={dropdownView}>
                     <Link className="dropdown-item" to={`/user/${username}`}>
